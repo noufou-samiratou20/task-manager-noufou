@@ -119,17 +119,16 @@ export default function RecherchePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             {/* Titre */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Titre de la tâche</label>
-              <input
-                type="text"
-                placeholder="Ex: Implémenter le login..."
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              />
-            </div>
+           <input
+  type="text"
+  placeholder="Ex: Implémenter le login..."
+  value={title}
+  onChange={(e) => setTitle(e.target.value)}
+  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm 
+  placeholder:text-blue-500 
+  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+/>
 
             {/* Statut */}
             <div>
@@ -137,7 +136,9 @@ export default function RecherchePage() {
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white 
+    focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
+    text-blue-500"
               >
                 <option value="">Tous les statuts</option>
                 <option value="PENDING">En attente</option>
@@ -152,7 +153,9 @@ export default function RecherchePage() {
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white 
+    focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
+    text-blue-500"
               >
                 <option value="">Toutes les priorités</option>
                 <option value="LOW">Basse</option>
@@ -168,7 +171,9 @@ export default function RecherchePage() {
                 type="date"
                 value={dueAfter}
                 onChange={(e) => setDueAfter(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white 
+    focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
+    text-blue-500"
               />
             </div>
 
@@ -179,7 +184,9 @@ export default function RecherchePage() {
                 type="date"
                 value={dueBefore}
                 onChange={(e) => setDueBefore(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white 
+    focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
+    text-blue-500"
               />
             </div>
           </div>

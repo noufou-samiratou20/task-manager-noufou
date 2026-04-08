@@ -1,3 +1,5 @@
+# ci.yml
+
 name: CI
 
 on:
@@ -20,8 +22,7 @@ jobs:
       - run: npm ci
       - run: npx prisma generate
       - run: npm run build
-
-      # Connexion au registre GitHub
+      [19:34, 07/04/2026] Kambire: # Connexion au registre GitHub
       - name: Login GHCR
         uses: docker/login-action@v3
         with:
@@ -29,30 +30,31 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Build et publication de l'image
+      # Image canonique : ghcr.io/<owner>/<nom-du-depot>:latest (visible sous Packages du dépôt)
+      # Alias next-app : garde la compatibilité si ton docker-compose sur le VPS utilise encore ce chemin
       - name: Build & Push
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/next-app:latest .
+          docker build \
+            -t ghcr.io/${{ github.repository }}:latest \
+            -t ghcr.io/${{ github.repository_owner }}/next-app:latest \
+            .
+          docker push ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository_owner }}/next-app:latest
-
-      # Déploiement automatique sur le VPS
-      # Nécessite le secret GHCR_TOKEN : PAT GitHub avec le droit read:packages
-      # (sans ça, docker compose pull échoue avec "denied" sur une image privée)
-      - name: Deploy via SSH
-        env:
-          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
-          GHCR_USER: ${{ github.repository_owner }}
-        uses: appleboy/ssh-action@v1.0.3
+[19:54, 07/04/2026] Kambire: # Connexion au registre GitHub
+      - name: Login GHCR
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GHCR_TOKEN,GHCR_USER
-          script: |
-            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
-            cd app
-            docker compose pull
-            docker compose up -d
-            docker logout ghcr.io
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-
+      # Image canonique : ghcr.io/<owner>/<nom-du-depot>:latest (visible sous Packages du dépôt)
+      # Alias task-manager-2 : garde la compatibilité si ton docker-compose sur le VPS utilise encore ce chemin
+      - name: Build & Push
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.repository }}:latest \
+            -t ghcr.io/${{ github.repository_owner }}/task-manager-2:latest \
+            .
+          docker push ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository_owner }}/task-manager-2:latest

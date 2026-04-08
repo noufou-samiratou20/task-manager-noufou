@@ -1,14 +1,13 @@
-# docker-compose.yml
-
 services:
   app:
     build: .
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "file:/app/data/tasks.db"
+      DATABASE_URL: "file:/app/data/dev.db"
     volumes:
       - app_data:/app/data
+      - .:/app
 
 volumes:
   app_data:

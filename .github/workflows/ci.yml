@@ -35,6 +35,5 @@ jobs:
       # 🐳 Build et push de l'image
       - name: Build & Push
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/task-manager-noufou:latest .
-          docker push ghcr.io/${{ github.repository_owner }}/task-manager-noufou:latest
-          
+          docker build -t ghcr.io/${{ noufou-samiratou20 }}/task-manager-noufou:latest .
+          docker push ghcr.io/${{ noufou-samiratou20 }}/task-manager-noufou:latest

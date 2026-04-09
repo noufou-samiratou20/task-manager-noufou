@@ -2,11 +2,11 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: [main, master]
 
 permissions:
   contents: read
-  packages: write   # ✅ IMPORTANT
+  packages: write
 
 jobs:
   build:
@@ -18,17 +18,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - run: npm ci
-
-      - run: mkdir -p data  
-
       - run: npx prisma generate
-
       - run: npm run build
 
-      # 🔐 Connexion au registre GitHub
       - name: Login GHCR
         uses: docker/login-action@v3
         with:
@@ -36,7 +30,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # 🐳 Build et push de l'image
       - name: Build & Push
         run: |
           docker build -t ghcr.io/noufou-samiratou20/task-manager-noufou:latest .

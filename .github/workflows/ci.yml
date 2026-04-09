@@ -18,7 +18,7 @@ jobs:
 
       - run: npm ci
 
-      - run: mkdir -p data   # ✅ pour SQLite
+      - run: mkdir -p data  
 
       - run: npx prisma generate
 
